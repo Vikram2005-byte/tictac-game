@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 style="text-align: center;">Tic Tac Toe Game</h1>
+    <div class="content">
+        <div class="gamePlatform">
+            <button class="boxes" data-row="0" data-col="0"></button>
+            <button class="boxes" data-row="0" data-col="1"></button>
+            <button class="boxes" data-row="0" data-col="2"></button>
+            <button class="boxes" data-row="1" data-col="0"></button>
+            <button class="boxes" data-row="1" data-col="1"></button>
+            <button class="boxes" data-row="1" data-col="2"></button>
+            <button class="boxes" data-row="2" data-col="0"></button>
+            <button class="boxes" data-row="2" data-col="1"></button>
+            <button class="boxes" data-row="2" data-col="2"></button>
+        </div>
+    </div>
+    
+    <div class="congrats">
+        <div class="circular">🎉</div>
+        <div class="congrats-midContent">
+            <h2>Congratulations!</h2>
+            <p class="winner-text"></p> <!-- Add this line to show the winner -->
+            <p>The game has ended. Click OK to restart.</p>
+        </div>
+        <div class="submitButton">
+            <button onclick="closeButton();">OK</button>
+        </div>
+    </div>
+    
+    
+    <script src="script.js"></script>
+</body>
+</html>
