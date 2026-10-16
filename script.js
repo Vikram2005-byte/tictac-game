@@ -4,41 +4,53 @@ const congratsPopup = document.querySelector(".congrats");
 const winnerText = document.querySelector(".winner-text");
 
 let player = "X";
-let board = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-];
+let gameOver = false;
+let board = createEmptyBoard();
+
+function createEmptyBoard() {
+    return Array.from({ length: 3 }, () => Array(3).fill(null));
+}
 
 gamePlatform.addEventListener("click", (event) => {
-    if (event.target.tagName === "BUTTON") {
-        let row = parseInt(event.target.getAttribute("data-row"));
-        let col = parseInt(event.target.getAttribute("data-col"));
-        if (board[row][col] !== null) return;
-        
-        board[row][col] = player;
-        event.target.innerText = player;
+    const box = event.target.closest(".boxes");
+    if (!box || gameOver || !gamePlatform.contains(box)) return;
 
-        let currentPlayer = player;  
+    const row = Number(box.dataset.row);
+    const col = Number(box.dataset.col);
+    if (board[row][col] !== null) return;
 
-        if (checkWinner(row, col, currentPlayer)) {
-            setTimeout(() => {
-                winnerText.innerText = `Player ${currentPlayer} Wins!`;
-                congratsPopup.classList.add("winner");
-            }, 300);
-        }
+    board[row][col] = player;
+    box.textContent = player;
+    box.setAttribute("aria-label", `Row ${row + 1}, column ${col + 1}: ${player}`);
 
-        player = player === "X" ? "O" : "X";
+    const currentPlayer = player;
+    if (checkWinner(row, col, currentPlayer)) {
+        endGame(`Player ${currentPlayer} Wins!`);
+        return;
     }
+
+    if (board.every((boardRow) => boardRow.every((cell) => cell !== null))) {
+        endGame("It's a draw!");
+        return;
+    }
+
+    player = player === "X" ? "O" : "X";
 });
 
-function checkWinner(row, col, player) {
+function checkWinner(row, col, mark) {
     return (
-        board[row][0] === player && board[row][1] === player && board[row][2] === player ||
-        board[0][col] === player && board[1][col] === player && board[2][col] === player ||
-        board[0][0] === player && board[1][1] === player && board[2][2] === player ||
-        board[0][2] === player && board[1][1] === player && board[2][0] === player
+        board[row].every((cell) => cell === mark) ||
+        board.every((boardRow) => boardRow[col] === mark) ||
+        (row === col && board.every((boardRow, index) => boardRow[index] === mark)) ||
+        (row + col === 2 && board.every((boardRow, index) => boardRow[2 - index] === mark))
     );
+}
+
+function endGame(message) {
+    gameOver = true;
+    boxes.forEach((box) => { box.disabled = true; });
+    winnerText.textContent = message;
+    congratsPopup.classList.add("winner");
 }
 
 function closeButton() {
@@ -47,12 +59,15 @@ function closeButton() {
 }
 
 function resetGame() {
-    board = [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
-    ];
-    boxes.forEach(box => box.innerText = "");
-    winnerText.innerText = "";
+    board = createEmptyBoard();
     player = "X";
+    gameOver = false;
+
+    boxes.forEach((box) => {
+        box.textContent = "";
+        box.disabled = false;
+        box.removeAttribute("aria-label");
+    });
+
+    winnerText.textContent = "";
 }
