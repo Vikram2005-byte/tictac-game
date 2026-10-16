@@ -3,39 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="theme-color" content="#a63a50">
+    <meta name="description" content="A responsive two-player Tic Tac Toe game with live turns, score tracking, and keyboard-accessible controls.">
+    <title>Tic Tac Toe — Two-player game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 style="text-align: center;">Tic Tac Toe Game</h1>
-    <div class="content">
-        <div class="gamePlatform">
-            <button class="boxes" data-row="0" data-col="0"></button>
-            <button class="boxes" data-row="0" data-col="1"></button>
-            <button class="boxes" data-row="0" data-col="2"></button>
-            <button class="boxes" data-row="1" data-col="0"></button>
-            <button class="boxes" data-row="1" data-col="1"></button>
-            <button class="boxes" data-row="1" data-col="2"></button>
-            <button class="boxes" data-row="2" data-col="0"></button>
-            <button class="boxes" data-row="2" data-col="1"></button>
-            <button class="boxes" data-row="2" data-col="2"></button>
-        </div>
-    </div>
-    
-    <div class="congrats">
-        <div class="circular">🎉</div>
+    <main class="app">
+        <h1>Tic Tac Toe</h1>
+        <p class="subtitle">A little friendly competition.</p>
+
+        <section class="game-shell" aria-label="Tic Tac Toe game">
+            <p id="game-status" class="game-status" role="status" aria-live="polite">Player X's turn</p>
+
+            <div class="scoreboard" aria-label="Scoreboard">
+                <div class="score-card score-x">
+                    <span>Player X</span>
+                    <strong id="score-x">0</strong>
+                </div>
+                <div class="score-card score-draws">
+                    <span>Draws</span>
+                    <strong id="score-draws">0</strong>
+                </div>
+                <div class="score-card score-o">
+                    <span>Player O</span>
+                    <strong id="score-o">0</strong>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="gamePlatform" role="group" aria-label="Tic Tac Toe board">
+                    <button type="button" class="boxes" data-row="0" data-col="0" aria-label="Row 1, column 1, empty"></button>
+                    <button type="button" class="boxes" data-row="0" data-col="1" aria-label="Row 1, column 2, empty"></button>
+                    <button type="button" class="boxes" data-row="0" data-col="2" aria-label="Row 1, column 3, empty"></button>
+                    <button type="button" class="boxes" data-row="1" data-col="0" aria-label="Row 2, column 1, empty"></button>
+                    <button type="button" class="boxes" data-row="1" data-col="1" aria-label="Row 2, column 2, empty"></button>
+                    <button type="button" class="boxes" data-row="1" data-col="2" aria-label="Row 2, column 3, empty"></button>
+                    <button type="button" class="boxes" data-row="2" data-col="0" aria-label="Row 3, column 1, empty"></button>
+                    <button type="button" class="boxes" data-row="2" data-col="1" aria-label="Row 3, column 2, empty"></button>
+                    <button type="button" class="boxes" data-row="2" data-col="2" aria-label="Row 3, column 3, empty"></button>
+                </div>
+            </div>
+
+            <div class="game-actions">
+                <button type="button" id="new-game" class="action-button action-primary">New game</button>
+                <button type="button" id="reset-scores" class="action-button action-secondary">Reset scores</button>
+            </div>
+        </section>
+        <p class="footer-note">Play locally in your browser. No account or server required.</p>
+    </main>
+
+    <section class="congrats" role="dialog" aria-labelledby="result-title" aria-describedby="result-description" aria-hidden="true">
+        <div class="circular" aria-hidden="true">✦</div>
         <div class="congrats-midContent">
-            <h2>Game Over</h2>
-            <p class="winner-text"></p> <!-- Add this line to show the winner -->
-            <p>The game has ended. Click OK to restart.</p>
+            <h2 id="result-title">Game over</h2>
+            <p class="winner-text"></p>
+            <p id="result-description">Start a new game whenever you're ready.</p>
         </div>
         <div class="submitButton">
-            <button onclick="closeButton();">OK</button>
+            <button type="button" id="result-ok" class="action-button action-primary">Play again</button>
         </div>
-    </div>
-    
-    
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
