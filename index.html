@@ -53,17 +53,19 @@
         <p class="footer-note">Play locally in your browser. No account or server required.</p>
     </main>
 
-    <section class="congrats" role="dialog" aria-labelledby="result-title" aria-describedby="result-description" aria-hidden="true">
-        <div class="circular" aria-hidden="true">✦</div>
-        <div class="congrats-midContent">
-            <h2 id="result-title">Game over</h2>
-            <p class="winner-text"></p>
-            <p id="result-description">Start a new game whenever you're ready.</p>
+    <dialog class="congrats" aria-labelledby="result-title" aria-describedby="result-description">
+        <div class="result-card">
+            <div class="circular" aria-hidden="true">✦</div>
+            <div class="congrats-midContent">
+                <h2 id="result-title">Game over</h2>
+                <p class="winner-text"></p>
+                <p id="result-description">Start a new game whenever you're ready.</p>
+            </div>
+            <div class="submitButton">
+                <button type="button" id="result-ok" class="action-button action-primary">Play again</button>
+            </div>
         </div>
-        <div class="submitButton">
-            <button type="button" id="result-ok" class="action-button action-primary">Play again</button>
-        </div>
-    </section>
+    </dialog>
 
     <script src="script.js"></script>
 </body>
